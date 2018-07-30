@@ -109,14 +109,12 @@ def load_from_path(db_path):
     engine = create_engine(DB_CONNECT_STRING) # echo=True: show operate echo
     
     # establish a session
-    DBSession = sessionmaker(bind=engine)    # 以上两句可合成 Session = sessionmaker(bind=engine)
+    DBSession = sessionmaker(bind=engine)
     session = DBSession()
-    
-    # execute a creating operation
-    # Base.metadata.create_all(engine)
-    
+
     return session
     
 
 if __name__ == '__main__':
     save_to_path(list_info=__DEMO_DATA__, db_path=__DB_PATH__)
+    session = load_from_path(db_path=__DB_PATH__)
