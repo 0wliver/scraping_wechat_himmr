@@ -13,23 +13,23 @@ Python 3.6 / Anaconda
 ## 主要工作
 Connect
 ========
-* 使用腾讯TBS Studio调试工具抓取小程序上的嘉宾信息页，并记录</br>
+* 使用腾讯TBS Studio调试工具抓取小程序上的嘉宾信息页，并记录
+* Requests爬取网页内容</br>
 http://bbs.mb.qq.com/thread-1416936-1-1.html</br>
 https://blog.csdn.net/yishengyouni95/article/details/80719281
+http://www.python-requests.org/en/master/</br>
 
 Correct
 ========
-* Requests包爬取网页内容
-* BeautifulSoup4解析HTML，提取个人情况和所有网页文字信息</br>
-http://www.python-requests.org/en/master/</br>
-https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+* BeautifulSoup4解析HTML，提取个人情况和所有网页文字信息
+* 使用pandas进行数据清洗</br>
+https://www.crummy.com/software/BeautifulSoup/bs4/doc/</br>
+http://pandas.pydata.org/</br>
 
 Collect
 ========
-* 使用pandas进行数据清洗
 * 数据库：sqlite3
 * 使用SQLAlchemy建立、存储、查询数据</br>
-http://pandas.pydata.org/</br>
 http://www.sqlalchemy.org/
 
 Compose
@@ -48,7 +48,8 @@ https://github.com/amueller/word_cloud
 
 Control
 ========
+* （可能的）后续工作：采用机器学习方法对嘉宾情况进行分类预测
 ![image](https://github.com/0wliver/scraping_wechat_himmr/blob/master/w_tfidf.png)
 ![image](https://github.com/0wliver/scraping_wechat_himmr/blob/master/w_textrank.png)
 ![image](https://github.com/0wliver/scraping_wechat_himmr/blob/master/w_freq.png)
-* （可能的）后续工作：采用机器学习方法对嘉宾情况进行分类预测
+
