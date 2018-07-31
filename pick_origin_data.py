@@ -38,26 +38,35 @@ def create_raw_dict(data_path):
     list_info_filtered=[]
     
     for linfo in list_info_origin:
-        if '陌上' in linfo['title']:
+        is_keyword = ('陌上' in linfo['title'])
+        is_num = any(char.isdigit() for char in linfo['title'])
+        
+        if is_keyword and is_num:
             list_info_filtered.append(linfo)
             
     return list_info_filtered
         
     
-# a subfunciton used for droping the advertise contents in html
+# a subfunciton used for droping advertise contents in html
 def subfunc_recognize_ad(list_p_span):
+    has_ad = False
+    is_blank = False
+    
+    list_ad_word = ['How', '打造', '点击', '发帖规则', '二维码',
+                    '付费', '转发','金额', '应征', '赞赏',
+                    '打赏', '原创', '陌上', '红娘', '发送',
+                    '平台', '文档', '文件名', '预告', '原文']
+    
+    # judge if target content is null or ads
     if list_p_span.string:
-        if ('How' in str(list_p_span)) \
-        or ('打造' in str(list_p_span)) \
-        or ('点击' in str(list_p_span)) \
-        or ('发帖规则' in str(list_p_span)) \
-        or ('二维码' in str(list_p_span)) \
-        or ('付费' in str(list_p_span)) \
-        or ('转发' in str(list_p_span)) \
-        or ('赞赏' in str(list_p_span)):
-            return True
-        return False
-    return True
+        for w in list_ad_word:
+            if w in str(list_p_span):
+                has_ad = True
+                return has_ad
+        return has_ad
+    else:
+        is_blank = True
+        return is_blank
 
 
 # gather each page's personal information into a dict
@@ -84,7 +93,7 @@ def subfunc_sort_info(list_p_span, list_info_filtered):
                     list_info_filtered['personal_info'][key] = str_p_span[str_p_span.find('：')+1:]
 
 
-# expand the dict, add related content and personal info
+# GET HTML CONTENT, expand the dict, add related content and personal info
 def fullfill_list_data(list_info):
     for lif in list_info:
         lif['content_line']=[]
@@ -92,6 +101,7 @@ def fullfill_list_data(list_info):
         lif['personal_info']=dict(sex='', birth='', school='', subject='', job='', location='', hometown='', sign='', height='')
         
         re = requests.get(url=lif['url'])   # get html from target url
+        print('GET URL:' + lif['title'])
         
         soupx = BeautifulSoup(re.text,'lxml')   # form a BeautifulSoup object
         
@@ -116,13 +126,42 @@ def fullfill_list_data(list_info):
     return list_info
 
 
+# drop invalid records
+# 规则：标题中必须含有数字；提取后的个人信息非全空；内容超过100字符
+def del_invalid_record(list_info):
+    list_info_valid = []
+    list_info_invalid = []
+    
+    for li in list_info: 
+        is_not_null = False        
+        is_len = False
+        
+        for value in li['personal_info'].values():
+            if value:
+                is_not_null = True
+                break
+        is_len = (len(li['content_all']) > 100)
+       
+        if is_not_null and is_len :
+            list_info_valid.append(li)
+        else:
+            print('DROP INVALID:' + li['title'])
+            list_info_invalid.append(li)
+    
+    # list_info_invalid also be record
+    return list_info_valid
+
+
 def main(data_path):
     list_info_raw = create_raw_dict(data_path)
     # list_info_raw = list_info_raw[:10] # demo's mini size
     list_info_formatted = fullfill_list_data(list_info_raw)
+    list_info_valid = del_invalid_record(list_info_formatted)
     
-    return list_info_formatted
+    return list_info_valid
     
 
 if __name__ == '__main__':
-    main(data_path=__DATA_PATH__)
+    list_info = main(data_path=__DATA_PATH__)
+    
+    
