@@ -48,4 +48,7 @@ https://github.com/amueller/word_cloud
 
 Control
 ========
+![image](https://github.com/0wliver/scraping_wechat_himmr/blob/master/w_tfidf.png)
+![image](https://github.com/0wliver/scraping_wechat_himmr/blob/master/w_textrank.png)
+![image](https://github.com/0wliver/scraping_wechat_himmr/blob/master/w_freq.png)
 * （可能的）后续工作：采用机器学习方法对嘉宾情况进行分类预测
