@@ -41,17 +41,19 @@ def jieba_count(result):
         wordlist_tfidf = jieba.analyse.extract_tags(sentence, 
                                                     topK=500, 
                                                     withWeight=True,
-                                                    allowPOS=('ns', 'n', 'vn', 'v', 'a', 'ad', 'an'))
+                                                    allowPOS=('n', 's', 'nr', 'ns', 'nt', 'nw', 'nz', 'v', 'vd', 'vn', 'a', 'ad', 'an'))
+
+        # allowPOS=('ns', 'n', 'vn', 'v', 'a', 'ad', 'an')
     
         wordlist_textrank = jieba.analyse.textrank(sentence, 
                                                    topK=500, 
                                                    withWeight=True,
-                                                   allowPOS=('ns', 'n', 'vn', 'v', 'a', 'ad', 'an'))
+                                                   allowPOS=('n', 's', 'nr', 'ns', 'nt', 'nw', 'nz', 'v', 'vd', 'vn', 'a', 'ad', 'an'))
     
         wordlist_freq = jieba.analyse.extract_tags(sentence, 
                                                    topK=500, 
                                                    withWeight=False,
-                                                   allowPOS=('ns', 'n', 'vn', 'v', 'a', 'ad', 'an'))
+                                                   allowPOS=('n', 's', 'nr', 'ns', 'nt', 'nw', 'nz', 'v', 'vd', 'vn', 'a', 'ad', 'an'))
     
         df_temp_tfidf = pd.DataFrame(wordlist_tfidf)
         df_temp_textrank = pd.DataFrame(wordlist_textrank)
@@ -100,10 +102,23 @@ def jieba_count(result):
   
 
 def filter_useless_word(df_word):
-    list_useless = ['性别', '生日', '出生年月', '院校', '学校',
-                    '就读', '学历', '方向', '专业', '学科',
-                    '工作', '职业', '坐标', '居住地', '所在地',
-                    '位置', '家乡', '籍贯', '星座', '身高', '兴趣爱好']
+    list_useless_a = ['性别', '生日', '出生年月', '院校', '学校',
+                      '就读', '学历', '大学', '方向', '专业', '学科',
+                      '工作', '职业', '坐标', '居住地', '所在地',
+                      '位置', '家乡', '籍贯', '星座', '身高', '兴趣爱好']
+    list_useless_b = ['心目', '觉得', '时候', '没有', '自我介绍', 
+                      '作为', '评价', '最好', '嘉宾', '充满', 
+                      '事情', '不会', '基本', '地方', '发现', 
+                      '可能', '妹子', '开始', '找到', '成为',
+                      '重要', '能够', '姑娘', '还有', '愿意',
+                      '对方', '期待', '好友', '喜欢', '有点',
+                      '人生', '相当', '遇到', '大家', '身边',
+                      '经历', '信息', '问题', '女生', '男生', 
+                      '希望', '女神', '希望', '家庭', '性格',
+                      '起来', '事物', '东西', '来自', '妹纸',
+                      '应该', '方面', '拥有', '有着', '属于',
+                      '女孩', '要求', '小喇叭', '复旦大学']
+    list_useless = list_useless_a + list_useless_b
     
     return df_word[~df_word['word'].isin(list_useless)]
 
@@ -113,15 +128,18 @@ def main(db_path):
     session = operate_data_db.load_from_path(db_path=db_path)
     result = session.query(operate_data_db.Person).all()   # 引用类时要有模块名, demo size:[:10]
 
-    return jieba_count(result)
+    df_word_tfidf, df_word_textrank, df_word_freq = jieba_count(result)
+    
+    df_word_tfidf = filter_useless_word(df_word_tfidf)
+    df_word_textrank = filter_useless_word(df_word_textrank) 
+    df_word_freq = filter_useless_word(df_word_freq) 
+    
+    return df_word_tfidf, df_word_textrank, df_word_freq
 
 
 if __name__ == '__main__':
     df_word_tfidf, df_word_textrank, df_word_freq = main(db_path=__DB_PATH__)
     
-    df_word_tfidf = filter_useless_word(df_word_tfidf)
-    df_word_textrank = filter_useless_word(df_word_textrank) 
-    df_word_freq = filter_useless_word(df_word_freq) 
     
     
 

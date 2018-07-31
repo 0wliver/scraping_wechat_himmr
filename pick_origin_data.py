@@ -73,7 +73,7 @@ def subfunc_recognize_ad(list_p_span):
 def subfunc_sort_info(list_p_span, list_info_filtered):
     dict_personal_info = dict(sex=['性别'],
                               birth=['生日', '出生年月'],
-                              school=['院校', '学校', '就读', '学历'],
+                              school=['院校', '学校', '就读', '学历', '大学'],
                               subject=['方向', '专业', '学科'],
                               job=['工作', '职业'],
                               location=['坐标', '居住地', '所在地', '位置'],
