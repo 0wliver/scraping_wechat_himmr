@@ -8,12 +8,12 @@ HIMMR是2015年1月创立的，全国唯一一个只针对清华，北大，复�
 公众号平台总阅读量超过1000万，评论数超过13000+条，转发量超过32000次。
 
 ## 语言及工具
-Python / Anaconda
+Python 3.6 / Anaconda
 
 ## 主要工作
 Connect
 ========
-使用腾讯TBS Studio调试工具抓取小程序上的嘉宾信息页，并记录</br>
+* 使用腾讯TBS Studio调试工具抓取小程序上的嘉宾信息页，并记录</br>
 http://bbs.mb.qq.com/thread-1416936-1-1.html</br>
 https://blog.csdn.net/yishengyouni95/article/details/80719281
 
