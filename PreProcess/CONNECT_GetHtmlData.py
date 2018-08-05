@@ -3,7 +3,7 @@
 from bs4 import BeautifulSoup
 import requests
 
-__DATA_PATH__ = '../himmr_history.txt'
+__DATA_PATH__ = '../data/himmr_history.txt'
 
 
 # create list of person info with raw data and title, extract from webpages

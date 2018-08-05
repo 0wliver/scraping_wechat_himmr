@@ -6,8 +6,8 @@ import pandas as pd
 import jieba
 import jieba.analyse
 
-__DB_PATH__ = '../himmr.db'
-__DATA_PATH__ = '../himmr_history.txt'
+__DB_PATH__ = '../data/himmr.db'
+__DATA_PATH__ = '../data/himmr_history.txt'
 
 #######################  GET DATA & STORE DATABASE    #######################
 '''

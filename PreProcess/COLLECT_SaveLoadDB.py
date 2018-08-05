@@ -5,7 +5,7 @@ from sqlalchemy import Column, Integer, String, Text
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-__DB_PATH__ = '../himmr.db'
+__DB_PATH__ = '../data/himmr.db'
 __DEMO_DATA__ = [{'url': 'https://github.com/0wliver',
                  'title': '0wliver', 
                  'content_line': ['https://github.com/', '0wliver'], 

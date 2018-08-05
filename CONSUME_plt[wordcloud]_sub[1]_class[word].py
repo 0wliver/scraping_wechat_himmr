@@ -5,8 +5,8 @@ from PreProcess import COMPOSE_CutCountWord
 import wordcloud
 
 
-__DB_PATH__ = 'himmr.db'
-__DATA_PATH__ = 'himmr_history.txt'
+__DB_PATH__ = './data/himmr.db'
+__DATA_PATH__ = '/data/himmr_history.txt'
 __FONT_PATH__ = 'C:/Windows/Fonts/msyh.ttc'
 
 
