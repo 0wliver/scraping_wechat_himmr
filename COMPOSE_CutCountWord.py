@@ -28,7 +28,7 @@ def jieba_count(result):
     df_freq = pd.DataFrame()
     
     
-    for index, r in enumerate(result):
+    for r in result:
         print('COUNT WORD:'+ r.title)
         sentence = r.content
         wordlist_tfidf = jieba.analyse.extract_tags(sentence, 
@@ -47,18 +47,18 @@ def jieba_count(result):
                                                    topK=500, 
                                                    withWeight=False,
                                                    allowPOS=('n', 's', 'nr', 'ns', 'nt', 'nw', 'nz', 'v', 'vd', 'vn', 'a', 'ad', 'an'))
-    
-        df_temp_tfidf = pd.DataFrame(wordlist_tfidf)
-        df_temp_textrank = pd.DataFrame(wordlist_textrank)
-        df_temp_freq = pd.DataFrame(wordlist_freq)
-        df_temp_freq[1] = 1
         
-        if not index:
-            df_tfidf = df_temp_tfidf
-            df_textrank = df_temp_textrank
-            df_freq = df_temp_freq
+        if df_tfidf.empty:
+            df_tfidf = pd.DataFrame(wordlist_tfidf)
+            df_textrank = pd.DataFrame(wordlist_textrank)
+            df_freq = pd.DataFrame(wordlist_freq)
+            df_freq[1] = 1
+        else:
+            df_temp_tfidf = pd.DataFrame(wordlist_tfidf)
+            df_temp_textrank = pd.DataFrame(wordlist_textrank)
+            df_temp_freq = pd.DataFrame(wordlist_freq)
+            df_temp_freq[1] = 1
             
-        if index < len(result):
             df_tfidf = pd.merge(df_tfidf, df_temp_tfidf, left_on=0, right_on=0, how='outer')
             df_textrank = pd.merge(df_textrank, df_temp_textrank, left_on=0, right_on=0, how='outer')
             df_freq = pd.merge(df_freq, df_temp_freq, left_on=0, right_on=0, how='outer')    
