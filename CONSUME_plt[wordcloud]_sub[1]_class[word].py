@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import COMPOSE_CutCountWord
+from PreProcess import COMPOSE_CutCountWord
 
 import wordcloud
 
