@@ -6,7 +6,7 @@ import wordcloud
 
 
 __DB_PATH__ = './data/himmr.db'
-__DATA_PATH__ = '/data/himmr_history.txt'
+__DATA_PATH__ = './data/himmr_history.txt'
 __FONT_PATH__ = 'C:/Windows/Fonts/msyh.ttc'
 
 
